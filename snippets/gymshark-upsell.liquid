@@ -1,0 +1,26 @@
+{{'component-gymshark-upsell.css' |  asset_url |  stylesheet_tag}}
+<script src="{{ 'gymshark-upsell.js' | asset_url }}" defer="defer"></script>
+<cart-upsell class="custom_upsell_container">
+    <div class="custom_upsell_container__inner">
+      <h1>YOU MIGHT LIKE</h1>
+      <div class="items_upsell_container">
+        {% assign listOfProducts = collections[settings.cart_drawer_collection].products %}
+        {% for p in listOfProducts %}
+          {% if forloop.index > 3 %}
+            {% break %}
+          {% endif %}
+         
+          <div class="upsell_item"  data-product-id="{{ p.first_available_variant.id }}" data-value="1" data-index="{{ p.index | plus: 1 }}">
+          <div class="image_product_container">
+            <div class="add_to_cart_upsell_item">
+            <img src="{{'add_to_cart_icon_upsell.png' |  asset_img_url }}" alt="">
+          </div>
+          <img src="{{ p.featured_image  |  image_url  }}" alt="">
+          </div>
+          <h3>{{p.title}}</h2>
+          <span>{{ p.price | money }}</span>
+        </div>
+        {% endfor %}  
+      </div>
+    </div>
+</cart-upsell>
